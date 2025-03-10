@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { SignIn } from './components/SignIn'
+import { Crosshair } from 'lucide-react'
+import { SignUp } from './components/SIgnUp'
 
 export default function Auth() {
   const [login, setLogin] = useState(true)
@@ -23,7 +25,13 @@ export default function Auth() {
           </div>
         </nav>
       </aside>
-      <SignIn />
+      <main className="flex h-screen flex-1 flex-col items-center justify-evenly px-20">
+        <header className="flex items-center justify-center font-bold">
+          <Crosshair className="h-24 w-24 text-orange-500" />
+          <p className="text-7xl text-slate-900">AIM.DO</p>
+        </header>
+        {login ? <SignIn /> : <SignUp />}
+      </main>
     </div>
   )
 }

@@ -7,6 +7,7 @@ import {
   LogOut,
 } from 'lucide-react'
 import { ListItem } from './components/ListItem'
+import { SettingsOption } from './components/SettingsOption'
 
 export function NavList() {
   return (
@@ -30,6 +31,7 @@ export function NavList() {
           <ListItem icon={<ClipboardList />} content="Tarefas" active={1} />
           <ListItem icon={<HandCoins />} content="Compras" active={2} />
           <ListItem icon={<Goal />} content="Metas" active={3} />
+          <SettingsOption />
         </ul>
       </div>
 

@@ -1,14 +1,9 @@
-import { ThemeContext } from '@/app/context/ThemeContext'
-import { useContext } from 'react'
-import { ButtonThemeToggle } from './components/ButtonThemeToggle'
-
 import rott from '@/../public/rottweiler.webp'
 import Image from 'next/image'
-import { Bell, Search } from 'lucide-react'
+import { Search } from 'lucide-react'
+import { NotificationSection } from './components/NotificationSection'
 
 export function Header() {
-  const { toggleTheme } = useContext(ThemeContext)
-
   return (
     <header className={'flex items-center gap-5'}>
       <div className="relative flex-1">
@@ -21,16 +16,7 @@ export function Header() {
           placeholder="Procurar"
         />
       </div>
-      <ul className="flex items-center gap-3">
-        <li>
-          <button className="rounded-full p-1 text-slate-800 transition-colors duration-300 ease-in-out hover:bg-slate-800 hover:text-white dark:text-white hover:dark:bg-white hover:dark:text-slate-800">
-            <Bell className="h-7 w-7" />
-          </button>
-        </li>
-        <li onClick={toggleTheme}>
-          <ButtonThemeToggle />
-        </li>
-      </ul>
+      <NotificationSection />
       <article className="flex items-center gap-2">
         <Image src={rott} alt="" className="h-11 w-11 rounded-full" />
         <div className="flex flex-col">
