@@ -30,7 +30,7 @@ export function SettingsOption() {
           <span>Meu Perfil</span>
         </li>
         <li
-          className="flex cursor-pointer gap-2 transition-colors duration-200 ease-linear hover:text-orange-500"
+          className="flex cursor-pointer items-center gap-2 transition-colors duration-200 ease-linear hover:text-orange-500"
           onClick={toggleTheme}
         >
           <ButtonThemeToggle />

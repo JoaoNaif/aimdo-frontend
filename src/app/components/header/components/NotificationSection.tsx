@@ -1,6 +1,7 @@
 import { ArrowRight, Bell, Mail } from 'lucide-react'
 import { useState } from 'react'
 import { Notification } from './Notification'
+import { Invite } from './Invite'
 
 export interface NotificationEntity {
   id: number
@@ -79,11 +80,20 @@ export function NotificationSection() {
             Convites
           </li>
         </nav>
-        <ul className="flex flex-col gap-5 p-4">
-          {notifications.map((item) => (
-            <Notification key={item.id} item={item} />
-          ))}
-        </ul>
+        {layoutNotification === 1 && (
+          <ul className="flex flex-col gap-5 p-4">
+            {notifications.map((item) => (
+              <Notification key={item.id} item={item} />
+            ))}
+          </ul>
+        )}
+        {layoutNotification === 2 && (
+          <ul className="flex flex-col gap-5 p-4">
+            {notifications.map((item) => (
+              <Invite key={item.id} item={item} />
+            ))}
+          </ul>
+        )}
       </div>
     </ul>
   )
