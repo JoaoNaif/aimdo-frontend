@@ -1,4 +1,4 @@
-import { ChevronDown, Settings, User } from 'lucide-react'
+import { ChevronDown, ChevronUp, Settings, User } from 'lucide-react'
 import { ButtonThemeToggle } from '../../header/components/ButtonThemeToggle'
 import { useContext, useState } from 'react'
 import { ThemeContext } from '@/app/context/ThemeContext'
@@ -20,7 +20,7 @@ export function SettingsOption() {
           <Settings />
           <span>Configurações</span>
         </div>
-        <ChevronDown />
+        {settingOpen ? <ChevronUp /> : <ChevronDown />}
       </header>
       <ul
         className={`flex-col gap-3 text-slate-800 dark:text-white ${settingOpen ? 'flex' : 'hidden'} transition-all duration-200 ease-linear`}
