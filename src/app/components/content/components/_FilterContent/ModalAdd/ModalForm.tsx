@@ -3,12 +3,14 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { ModalCategory } from './ModalCategory'
 import { ModalUrgency } from './ModalUrgency'
+import { ModalDueDate } from './ModalDueDate'
 
 const newTaskValidationSchema = z.object({
   title: z.string(),
   description: z.string(),
   category: z.enum(['goal', 'task', 'buy']),
   urgency: z.enum(['high', 'medium', 'low']),
+  dueDate: z.date().nullable(),
 })
 
 export type NewTaskValidationSchema = z.infer<typeof newTaskValidationSchema>
@@ -21,6 +23,7 @@ export function ModalForm() {
       description: '',
       category: 'goal',
       urgency: 'medium',
+      dueDate: null,
     },
   })
 
@@ -63,8 +66,11 @@ export function ModalForm() {
           />
         </div>
 
-        <ModalCategory />
-        <ModalUrgency />
+        <div className="flex items-start gap-4">
+          <ModalCategory />
+          <ModalUrgency />
+        </div>
+        <ModalDueDate />
 
         <footer className="mt-4 flex justify-end border-t-2 border-slate-400 px-4 pt-4">
           <button
