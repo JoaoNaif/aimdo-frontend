@@ -1,3 +1,5 @@
+'use client'
+
 import { registerUser } from '@/app/api/register-user'
 import { useMutation } from '@tanstack/react-query'
 import { AtSign, CircleUser, Eye, EyeClosed, Lock, Pen } from 'lucide-react'
@@ -7,6 +9,7 @@ import { toast } from 'sonner'
 
 import { z } from 'zod'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const signUpForm = z.object({
   name: z.string(),
   username: z.string(),
@@ -16,11 +19,7 @@ const signUpForm = z.object({
 
 type SignUpForm = z.infer<typeof signUpForm>
 
-export function SignUp() {
-  const [typingEmail, setTypingEmail] = useState(false)
-  const [typingUsername, setTypingUsername] = useState(false)
-  const [typingName, setTypingName] = useState(false)
-  const [typingPassword, setTypingPassword] = useState(false)
+export default function SignUp() {
   const [visiblePass, setVisiblePass] = useState(false)
 
   const { register, handleSubmit } = useForm<SignUpForm>()
@@ -50,57 +49,48 @@ export function SignUp() {
       className="flex w-full flex-col gap-10 px-3"
     >
       <div className="relative">
-        {!typingUsername && (
-          <label
-            htmlFor="username"
-            className="absolute top-[-1px] flex gap-2 text-slate-300"
-          >
-            <CircleUser />
-            <span>Username</span>
-          </label>
-        )}
+        <label
+          htmlFor="username"
+          className="absolute top-[-1px] flex gap-2 text-slate-300"
+        >
+          <CircleUser />
+        </label>
         <input
           type="text"
           id="username"
+          placeholder="Username"
           {...register('username')}
           className="w-full border-b-2 border-slate-300 bg-transparent pl-7 text-slate-900 outline-none focus:border-orange-500"
-          onChange={(e) => setTypingUsername(e.target.value.length > 0)}
         />
       </div>
       <div className="relative">
-        {!typingName && (
-          <label
-            htmlFor="name"
-            className="absolute top-[-1px] flex gap-2 text-slate-300"
-          >
-            <Pen />
-            <span>Name</span>
-          </label>
-        )}
+        <label
+          htmlFor="name"
+          className="absolute top-[-1px] flex gap-2 text-slate-300"
+        >
+          <Pen />
+        </label>
         <input
           type="text"
           id="name"
           {...register('name')}
+          placeholder="Name"
           className="w-full border-b-2 border-slate-300 bg-transparent pl-7 text-slate-900 outline-none focus:border-orange-500"
-          onChange={(e) => setTypingName(e.target.value.length > 0)}
         />
       </div>
       <div className="relative">
-        {!typingEmail && (
-          <label
-            htmlFor="email"
-            className="absolute top-[-1px] flex gap-2 text-slate-300"
-          >
-            <AtSign />
-            <span>E-mail</span>
-          </label>
-        )}
+        <label
+          htmlFor="email"
+          className="absolute top-[-1px] flex gap-2 text-slate-300"
+        >
+          <AtSign />
+        </label>
         <input
           type="email"
           id="email"
+          placeholder="E-mail"
           {...register('email')}
           className="w-full border-b-2 border-slate-300 bg-transparent pl-7 text-slate-900 outline-none focus:border-orange-500"
-          onChange={(e) => setTypingEmail(e.target.value.length > 0)}
         />
       </div>
 
@@ -111,21 +101,18 @@ export function SignUp() {
         >
           {visiblePass ? <EyeClosed /> : <Eye />}
         </div>
-        {!typingPassword && (
-          <label
-            htmlFor="password"
-            className="absolute top-[-1px] flex gap-2 text-slate-300"
-          >
-            <Lock />
-            <span>Senha</span>
-          </label>
-        )}
+        <label
+          htmlFor="password"
+          className="absolute top-[-1px] flex gap-2 text-slate-300"
+        >
+          <Lock />
+        </label>
         <input
           type={visiblePass ? 'text' : 'password'}
           id="password"
           {...register('password')}
+          placeholder="Senha"
           className="w-full border-b-2 border-slate-300 bg-transparent pl-7 text-slate-900 outline-none focus:border-orange-500"
-          onChange={(e) => setTypingPassword(e.target.value.length > 0)}
         />
       </div>
       <div className="flex items-end justify-end">

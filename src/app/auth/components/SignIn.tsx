@@ -4,30 +4,67 @@ import { AtSign, Eye, EyeClosed, Lock } from 'lucide-react'
 import { useState } from 'react'
 import { GoogleLogo } from '@phosphor-icons/react'
 import Link from 'next/link'
+import { z } from 'zod'
+import { useForm } from 'react-hook-form'
+import { useMutation } from '@tanstack/react-query'
+import { AutehnticateUser } from '@/app/api/authenticate-user'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
-export function SignIn() {
-  const [typingEmail, setTypingEmail] = useState(false)
-  const [typingPassword, setTypingPassword] = useState(false)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const signInForm = z.object({
+  email: z.string().email(),
+  password: z.string(),
+})
+
+type SignInForm = z.infer<typeof signInForm>
+
+export default function SignIn() {
   const [visiblePass, setVisiblePass] = useState(false)
+
+  const router = useRouter()
+
+  const { register, handleSubmit } = useForm<SignInForm>()
+
+  const { mutateAsync: authenticateUserFn } = useMutation({
+    mutationFn: AutehnticateUser,
+  })
+
+  async function handleSignIn(data: SignInForm) {
+    try {
+      const response = await authenticateUserFn({
+        email: data.email,
+        password: data.password,
+      })
+
+      sessionStorage.setItem('access_token', response.access_token)
+
+      toast.success('Login efetuado')
+      router.push('/')
+    } catch {
+      toast.error('Erro ao fazer login')
+    }
+  }
 
   return (
     <>
-      <form className="flex w-full flex-col gap-10 px-3">
+      <form
+        onSubmit={handleSubmit(handleSignIn)}
+        className="flex w-full flex-col gap-10 px-3"
+      >
         <div className="relative">
-          {!typingEmail && (
-            <label
-              htmlFor="email"
-              className="absolute top-[-1px] flex gap-2 text-slate-300"
-            >
-              <AtSign />
-              <span>E-mail</span>
-            </label>
-          )}
+          <label
+            htmlFor="email"
+            className="absolute top-[-1px] flex gap-2 text-slate-300"
+          >
+            <AtSign />
+          </label>
           <input
             type="email"
             id="email"
+            {...register('email')}
             className="w-full border-b-2 border-slate-300 bg-transparent pl-7 text-slate-900 outline-none focus:border-orange-500"
-            onChange={(e) => setTypingEmail(e.target.value.length > 0)}
+            placeholder="E-mail"
           />
         </div>
         <div className="relative">
@@ -37,20 +74,18 @@ export function SignIn() {
           >
             {visiblePass ? <EyeClosed /> : <Eye />}
           </div>
-          {!typingPassword && (
-            <label
-              htmlFor="password"
-              className="absolute top-[-1px] flex gap-2 text-slate-300"
-            >
-              <Lock />
-              <span>Senha</span>
-            </label>
-          )}
+          <label
+            htmlFor="password"
+            className="absolute top-[-1px] z-0 flex gap-2 text-slate-300"
+          >
+            <Lock />
+          </label>
           <input
             type={visiblePass ? 'text' : 'password'}
             id="password"
-            className="w-full border-b-2 border-slate-300 bg-transparent pl-7 text-slate-900 outline-none focus:border-orange-500"
-            onChange={(e) => setTypingPassword(e.target.value.length > 0)}
+            {...register('password')}
+            placeholder="Senha"
+            className="z-10 w-full border-b-2 border-slate-300 bg-transparent pl-7 text-slate-900 outline-none focus:border-orange-500"
           />
         </div>
         <div className="flex items-end justify-between">
@@ -60,7 +95,10 @@ export function SignIn() {
           >
             Esqueceu a senha?
           </Link>
-          <button className="rounded-lg bg-orange-500 px-6 py-2 text-lg font-bold text-slate-50 transition-colors duration-200 ease-linear hover:bg-orange-600">
+          <button
+            type="submit"
+            className="rounded-lg bg-orange-500 px-6 py-2 text-lg font-bold text-slate-50 transition-colors duration-200 ease-linear hover:bg-orange-600"
+          >
             Entrar
           </button>
         </div>

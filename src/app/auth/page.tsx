@@ -1,9 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { SignIn } from './components/SignIn'
 import { Crosshair } from 'lucide-react'
-import { SignUp } from './components/SIgnUp'
+import dynamic from 'next/dynamic'
+
+const SignIn = dynamic(() => import('./components/SignIn'), { ssr: false })
+const SignUp = dynamic(() => import('./components/SignUp'), { ssr: false })
 
 export default function Auth() {
   const [login, setLogin] = useState(true)
