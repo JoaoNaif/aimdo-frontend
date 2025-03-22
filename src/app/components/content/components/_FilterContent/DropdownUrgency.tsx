@@ -4,7 +4,11 @@ import { useState } from 'react'
 interface DropdownUrgencyType {
   toggleDropDownUrgency: () => void
   dropDownUrgency: boolean
-  changeFilter: (status?: string, urgency?: string, order?: string) => void
+  changeFilter: (
+    status?: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELED',
+    urgency?: 'HIGH' | 'MEDIUM' | 'LOW',
+    order?: string
+  ) => void
 }
 
 export function DropdownUrgency({
@@ -14,7 +18,7 @@ export function DropdownUrgency({
 }: DropdownUrgencyType) {
   const [value, setValue] = useState('HIGH')
 
-  function changeValueFilter(valueFilter: string) {
+  function changeValueFilter(valueFilter: 'HIGH' | 'MEDIUM' | 'LOW') {
     changeFilter(undefined, valueFilter)
     setValue(valueFilter)
   }

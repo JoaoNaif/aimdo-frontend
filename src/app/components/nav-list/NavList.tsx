@@ -8,8 +8,11 @@ import {
 } from 'lucide-react'
 import { ListItem } from './components/ListItem'
 import { SettingsOption } from './components/SettingsOption'
+import { useContext } from 'react'
+import { OptionContext } from '@/app/context/OptionContext'
 
 export function NavList() {
+  const { changeOption } = useContext(OptionContext)
   return (
     <nav
       className={
@@ -17,7 +20,10 @@ export function NavList() {
       }
     >
       <div className="flex flex-col gap-8">
-        <header className="flex items-center gap-1">
+        <header
+          onClick={() => changeOption(0)}
+          className="flex cursor-pointer items-center gap-1"
+        >
           <div>
             <Crosshair className="h-10 w-10 text-orange-500" />
           </div>

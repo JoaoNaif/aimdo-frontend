@@ -4,7 +4,11 @@ import { useState } from 'react'
 interface DropdownStatusTypes {
   toggleDropDownStatus: () => void
   dropDownStatus: boolean
-  changeFilter: (status?: string, urgency?: string, order?: string) => void
+  changeFilter: (
+    status?: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELED',
+    urgency?: 'HIGH' | 'MEDIUM' | 'LOW',
+    order?: string
+  ) => void
 }
 
 export function DropdownStatus({
@@ -12,9 +16,11 @@ export function DropdownStatus({
   toggleDropDownStatus,
   changeFilter,
 }: DropdownStatusTypes) {
-  const [value, setValue] = useState('pending')
+  const [value, setValue] = useState('PENDING')
 
-  function changeValueFilter(valueFilter: string) {
+  function changeValueFilter(
+    valueFilter: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELED'
+  ) {
     changeFilter(valueFilter)
     setValue(valueFilter)
   }
@@ -33,26 +39,26 @@ export function DropdownStatus({
         className={`right-0 w-36 overflow-hidden rounded-md bg-white text-center shadow-md ${dropDownStatus ? 'absolute' : 'hidden'}`}
       >
         <li
-          onClick={() => changeValueFilter('pending')}
-          className={`cursor-pointer py-1 ${value === 'pending' ? 'bg-orange-500 text-white' : 'transition-colors duration-300 ease-in hover:bg-slate-200'}`}
+          onClick={() => changeValueFilter('PENDING')}
+          className={`cursor-pointer py-1 ${value === 'PENDING' ? 'bg-orange-500 text-white' : 'transition-colors duration-300 ease-in hover:bg-slate-200'}`}
         >
           Pending
         </li>
         <li
-          onClick={() => changeValueFilter('in-progress')}
-          className={`cursor-pointer py-1 ${value === 'in-progress' ? 'bg-orange-500 text-white' : 'transition-colors duration-300 ease-linear hover:bg-slate-200'}`}
+          onClick={() => changeValueFilter('IN_PROGRESS')}
+          className={`cursor-pointer py-1 ${value === 'IN_PROGRESS' ? 'bg-orange-500 text-white' : 'transition-colors duration-300 ease-linear hover:bg-slate-200'}`}
         >
           In progress
         </li>
         <li
-          onClick={() => changeValueFilter('completed')}
-          className={`cursor-pointer py-1 ${value === 'completed' ? 'bg-orange-500 text-white' : 'transition-colors duration-300 ease-linear hover:bg-slate-200'}`}
+          onClick={() => changeValueFilter('COMPLETED')}
+          className={`cursor-pointer py-1 ${value === 'COMPLETED' ? 'bg-orange-500 text-white' : 'transition-colors duration-300 ease-linear hover:bg-slate-200'}`}
         >
           Completed
         </li>
         <li
-          onClick={() => changeValueFilter('canceled')}
-          className={`cursor-pointer py-1 ${value === 'canceled' ? 'bg-orange-500 text-white' : 'transition-colors duration-300 ease-linear hover:bg-slate-200'}`}
+          onClick={() => changeValueFilter('CANCELED')}
+          className={`cursor-pointer py-1 ${value === 'CANCELED' ? 'bg-orange-500 text-white' : 'transition-colors duration-300 ease-linear hover:bg-slate-200'}`}
         >
           Canceled
         </li>

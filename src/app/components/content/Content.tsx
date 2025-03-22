@@ -4,6 +4,7 @@ import { Dashboard } from './components/Dashboard'
 import { Task } from './components/Task'
 import { Buy } from './components/Buy'
 import { Goal } from './components/Goal'
+import { AllObjectives } from './components/AllObjectives'
 
 export function Content() {
   const { option } = useContext(OptionContext)
@@ -14,6 +15,7 @@ export function Content() {
       {option === 1 && <Task />}
       {option === 2 && <Buy />}
       {option === 3 && <Goal />}
+      {option === 4 && <AllObjectives />}
     </main>
   )
 }

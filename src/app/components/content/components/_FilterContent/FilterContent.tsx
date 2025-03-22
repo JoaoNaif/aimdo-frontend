@@ -1,18 +1,19 @@
 import { OptionContext } from '@/app/context/OptionContext'
 import { Plus } from 'lucide-react'
-import { useContext, useState } from 'react'
+import { SetStateAction, useContext, useState } from 'react'
 import { DropdownFilter } from './DropdownFilter'
 import { DropdownUrgency } from './DropdownUrgency'
 import { DropdownStatus } from './DropdownStatus'
 import { ValueFilterType } from '@/app/_types/FilterTypes'
 import { ModalAdd } from './ModalAdd/ModalAdd'
 import { ModalContext } from '@/app/context/ModalContext'
+import { getFilters } from '@/app/utils/FilterObjective'
 
 interface FilterContentProps {
-  getFilters: (values: ValueFilterType) => void
+  setValueFilter: (value: SetStateAction<ValueFilterType>) => void
 }
 
-export function FilterContent({ getFilters }: FilterContentProps) {
+export function FilterContent({ setValueFilter }: FilterContentProps) {
   const [dropDownFilter, setDropDownFilter] = useState(false)
   const [dropDownStatus, setDropDownStatus] = useState(false)
   const [dropDownUrgency, setDropDownUrgency] = useState(false)
@@ -37,14 +38,18 @@ export function FilterContent({ getFilters }: FilterContentProps) {
     setDropDownUrgency(!dropDownUrgency)
   }
 
-  function changeFilter(status?: string, urgency?: string, order?: string) {
+  function changeFilter(
+    status?: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELED',
+    urgency?: 'HIGH' | 'MEDIUM' | 'LOW',
+    order?: string
+  ) {
     const newValues: ValueFilterType = {
       order,
       status,
       urgency,
     }
 
-    getFilters(newValues)
+    getFilters(newValues, setValueFilter)
   }
 
   return (

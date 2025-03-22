@@ -4,7 +4,11 @@ import { useState } from 'react'
 interface DropdownFilterProps {
   toggleDropDownFilter: () => void
   dropDownFilter: boolean
-  changeFilter: (status?: string, urgency?: string, order?: string) => void
+  changeFilter: (
+    status?: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELED',
+    urgency?: 'HIGH' | 'MEDIUM' | 'LOW',
+    order?: string
+  ) => void
 }
 
 export function DropdownFilter({
