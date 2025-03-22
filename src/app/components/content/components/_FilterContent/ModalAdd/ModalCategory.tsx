@@ -12,7 +12,7 @@ export function ModalCategory() {
         <li className="flex w-full">
           <input
             type="radio"
-            value="task"
+            value="TASK"
             id="task"
             {...register('category')}
             className="peer hidden"
@@ -30,7 +30,7 @@ export function ModalCategory() {
         <li className="flex w-full">
           <input
             type="radio"
-            value="goal"
+            value="GOAL"
             id="goal"
             {...register('category')}
             className="peer hidden"
@@ -48,7 +48,7 @@ export function ModalCategory() {
         <li className="flex w-full">
           <input
             type="radio"
-            value="buy"
+            value="BUY"
             id="buy"
             {...register('category')}
             className="peer hidden"

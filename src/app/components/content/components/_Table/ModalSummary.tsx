@@ -1,32 +1,34 @@
-import { ProductType } from '@/app/mock/ProductMock'
+import { Objective } from '@/app/_types/Objective'
 
 interface ModalSummaryProps {
-  item: ProductType
+  item: Objective
 }
 
 export function ModalSummary({ item }: ModalSummaryProps) {
+  const createdAtObjective = new Date(item.createdAt)
+
   return (
     <ul className="grid grid-cols-2 gap-2">
       <li className="flex flex-col">
         <h3 className="text-sm">Status:</h3>
         <p className="font-bold">
-          {item.status === 'pending' && 'Pendente'}{' '}
-          {item.status === 'in-progress' && 'Em progresso'}
-          {item.status === 'completed' && 'Concluído'}
-          {item.status === 'canceled' && 'Cancelado'}
+          {item.status === 'PENDING' && 'Pendente'}{' '}
+          {item.status === 'IN_PROGRESS' && 'Em progresso'}
+          {item.status === 'COMPLETED' && 'Concluído'}
+          {item.status === 'CANCELED' && 'Cancelado'}
         </p>
       </li>
       <li className="flex flex-col">
         <h3 className="text-sm">Criado:</h3>
         <p className="font-bold">
-          {item.createdAt.getDate() < 10
-            ? `0${item.createdAt.getDate()}`
-            : item.createdAt.getDate()}
+          {createdAtObjective.getDate() < 10
+            ? `0${createdAtObjective.getDate()}`
+            : createdAtObjective.getDate()}
           /
-          {item.createdAt.getMonth() < 10
-            ? `0${item.createdAt.getMonth()}`
-            : item.createdAt.getMonth()}
-          /{item.createdAt.getFullYear()}
+          {createdAtObjective.getMonth() < 10
+            ? `0${createdAtObjective.getMonth()}`
+            : createdAtObjective.getMonth()}
+          /{createdAtObjective.getFullYear()}
         </p>
       </li>
       <li className="flex flex-col">

@@ -1,19 +1,26 @@
-import { products, ProductType } from '@/app/mock/ProductMock'
 import { FilterContent } from './_FilterContent/FilterContent'
 import { useState } from 'react'
 import { Filters, ValueFilterType } from '@/app/_types/FilterTypes'
 import { DataTable } from './_Table/DataTable'
+import { useQuery } from '@tanstack/react-query'
+import { Objective } from '@/app/_types/Objective'
+import { fetchTask } from '@/app/api/fetch-task'
 
 export function Task() {
   const [valueFilter, setValueFilter] = useState<ValueFilterType>({
-    status: 'pending',
+    status: 'PENDING',
     urgency: 'HIGH',
     order: 'asc',
   })
 
-  const taskList = products.filter((i) => i.category === 'TASK')
+  const { data: tasks = [] } = useQuery({
+    queryFn: fetchTask,
+    queryKey: ['tasks'],
+  })
 
-  function sortProducts(items: ProductType[], order: string = 'asc') {
+  const taskList = tasks.filter((i) => i.category === 'TASK')
+
+  function sortProducts(items: Objective[], order: string = 'asc') {
     return [...items].sort((a, b) => {
       const valueA = a.createdAt
       const valueB = b.createdAt
@@ -23,11 +30,13 @@ export function Task() {
     })
   }
 
-  function filterProducts(items: ProductType[], filters: Filters) {
+  function filterProducts(items: Objective[], filters: Filters) {
     return items.filter(
       (i) => i.status === filters.status && i.urgency === filters.urgency
     )
   }
+
+  console.log(taskList, valueFilter.status, valueFilter.urgency)
 
   const filteredAndSorted = sortProducts(
     filterProducts(taskList, {

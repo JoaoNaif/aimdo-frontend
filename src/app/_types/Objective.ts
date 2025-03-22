@@ -1,8 +1,10 @@
 export interface Objective {
     id: string
     title: string
-    category: string
-    status: string
-    urgency: string
-    createdAt: Date
+    description: string
+    category: 'TASK' | 'BUY' | 'GOAL'
+    status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELED'
+    urgency: 'HIGH' | 'MEDIUM' | 'LOW'
+    dueDate?: Date | null
+    createdAt: string
 }

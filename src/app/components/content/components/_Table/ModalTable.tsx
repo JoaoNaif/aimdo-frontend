@@ -1,10 +1,10 @@
-import { ProductType } from '@/app/mock/ProductMock'
 import { UserPlus, Users, X } from 'lucide-react'
 import { ModalSummary } from './ModalSummary'
 import { ModalFooter } from './ModalFooter'
+import { Objective } from '@/app/_types/Objective'
 
 interface ModalTableProps {
-  item: ProductType
+  item: Objective
   handleCloseModal: () => void
 }
 

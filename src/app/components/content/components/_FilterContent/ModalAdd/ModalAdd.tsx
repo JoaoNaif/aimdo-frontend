@@ -27,7 +27,7 @@ export function ModalAdd() {
             <X />
           </div>
         </header>
-        <ModalForm />
+        <ModalForm handleCloseModal={handleCloseModal} />
       </div>
     </div>
   )

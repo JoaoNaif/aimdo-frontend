@@ -1,8 +1,8 @@
-import { ProductType } from '@/app/mock/ProductMock'
+import { Objective } from '@/app/_types/Objective'
 import { useState } from 'react'
 
 interface ModalFooterProps {
-  item: ProductType
+  item: Objective
 }
 
 export function ModalFooter({ item }: ModalFooterProps) {
@@ -31,7 +31,7 @@ export function ModalFooter({ item }: ModalFooterProps) {
         </div>
       ) : (
         <footer className="flex justify-end gap-5 border-t-2 border-slate-300 pr-3 pt-3 font-bold">
-          {item.status !== 'canceled' && (
+          {item.status !== 'CANCELED' && (
             <button
               onClick={handleCancelButton}
               className="rounded-sm border border-slate-300 px-4 py-1 text-slate-400 transition-colors duration-200 ease-linear hover:border-rose-500 hover:bg-rose-200 hover:text-rose-500"
@@ -40,12 +40,12 @@ export function ModalFooter({ item }: ModalFooterProps) {
             </button>
           )}
           <button
-            className={`rounded-sm px-4 py-2 text-white transition-colors duration-200 ease-linear ${item.status === 'pending' && 'bg-indigo-600 hover:bg-indigo-700'} ${item.status === 'in-progress' && 'bg-emerald-500 hover:bg-emerald-600'} ${item.status === 'canceled' && 'bg-amber-500 hover:bg-amber-600'} ${item.status === 'completed' && 'bg-emerald-900'}`}
+            className={`rounded-sm px-4 py-2 text-white transition-colors duration-200 ease-linear ${item.status === 'PENDING' && 'bg-indigo-600 hover:bg-indigo-700'} ${item.status === 'IN_PROGRESS' && 'bg-emerald-500 hover:bg-emerald-600'} ${item.status === 'CANCELED' && 'bg-amber-500 hover:bg-amber-600'} ${item.status === 'COMPLETED' && 'bg-emerald-900'}`}
           >
-            {item.status === 'pending' && 'Iniciar'}
-            {item.status === 'in-progress' && 'Concluir'}
-            {item.status === 'completed' && 'Concluído'}
-            {item.status === 'canceled' && 'Retomar'}
+            {item.status === 'PENDING' && 'Iniciar'}
+            {item.status === 'IN_PROGRESS' && 'Concluir'}
+            {item.status === 'COMPLETED' && 'Concluído'}
+            {item.status === 'CANCELED' && 'Retomar'}
           </button>
         </footer>
       )}

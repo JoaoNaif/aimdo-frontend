@@ -1,9 +1,9 @@
-import { ProductType } from '@/app/mock/ProductMock'
 import { ContentTable } from './ContentTable'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { Objective } from '@/app/_types/Objective'
 
 interface DataTableProps {
-  list: ProductType[]
+  list: Objective[]
 }
 
 export function DataTable({ list }: DataTableProps) {

@@ -4,7 +4,7 @@ export interface Filters {
 }
 
 export interface ValueFilterType {
-  status?: string
-  urgency?: string
+  status?: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELED'
+  urgency?: 'HIGH' | 'MEDIUM' | 'LOW'
   order?: string
 }

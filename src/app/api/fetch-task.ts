@@ -2,10 +2,10 @@ import { Objective } from '../_types/Objective'
 import { api } from '../lib/axios'
 
 export interface FetchTaskObjectiveResponse {
-    task: Objective[]
+    tasks: Objective[]
 }
 
-export async function fetchTaskObjective() {
+export async function fetchTask() {
     const token = sessionStorage.getItem('access_token')
 
     const response = await api.get<FetchTaskObjectiveResponse>('/objectives/tasks', {
@@ -14,5 +14,5 @@ export async function fetchTaskObjective() {
         }
     })
 
-    return response.data.task
+    return response.data.tasks
 }

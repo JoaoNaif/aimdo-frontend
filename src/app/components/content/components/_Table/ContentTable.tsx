@@ -1,11 +1,11 @@
-import { ProductType } from '@/app/mock/ProductMock'
 import { Trash } from 'lucide-react'
 import { useState } from 'react'
 import { ModalTable } from './ModalTable'
 import ReactDOM from 'react-dom'
+import { Objective } from '@/app/_types/Objective'
 
 interface ContentTableProps {
-  item: ProductType
+  item: Objective
 }
 
 export function ContentTable({ item }: ContentTableProps) {
@@ -14,6 +14,8 @@ export function ContentTable({ item }: ContentTableProps) {
   function handleCloseModal() {
     setModal(false)
   }
+
+  const createdAtObjective = new Date(item.createdAt)
 
   return (
     <>
@@ -25,14 +27,15 @@ export function ContentTable({ item }: ContentTableProps) {
         <td className="p-1">{item.urgency}</td>
         <td className="p-1">{item.status}</td>
         <td className="p-1">
-          {item.createdAt.getDate() < 10
-            ? `0${item.createdAt.getDate()}`
-            : item.createdAt.getDate()}
+          {' '}
+          {createdAtObjective.getDate() < 10
+            ? `0${createdAtObjective.getDate()}`
+            : createdAtObjective.getDate()}
           /
-          {item.createdAt.getMonth() < 10
-            ? `0${item.createdAt.getMonth()}`
-            : item.createdAt.getMonth()}
-          /{item.createdAt.getFullYear()}
+          {createdAtObjective.getMonth() < 10
+            ? `0${createdAtObjective.getMonth()}`
+            : createdAtObjective.getMonth()}
+          /{createdAtObjective.getFullYear()}
         </td>
         <td onClick={() => setModal(true)} className="p-1">
           <button className="hover:text-orange-500 hover:underline">

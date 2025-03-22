@@ -1,8 +1,8 @@
 import { Mail, Check, X } from 'lucide-react'
-import { NotificationEntity } from './NotificationSection'
+import { Notification } from '@/app/_types/Notification'
 
 export interface InviteProps {
-  item: NotificationEntity
+  item: Notification
 }
 
 export function Invite({ item }: InviteProps) {

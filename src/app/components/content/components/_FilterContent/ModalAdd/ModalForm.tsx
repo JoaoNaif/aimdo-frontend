@@ -4,32 +4,61 @@ import { z } from 'zod'
 import { ModalCategory } from './ModalCategory'
 import { ModalUrgency } from './ModalUrgency'
 import { ModalDueDate } from './ModalDueDate'
+import { createObjective } from '@/app/api/create-objective'
+import { toast } from 'sonner'
+import { useMutation } from '@tanstack/react-query'
+
+interface ModalFormProps {
+  handleCloseModal: () => void
+}
 
 const newTaskValidationSchema = z.object({
   title: z.string(),
   description: z.string(),
-  category: z.enum(['goal', 'task', 'buy']),
-  urgency: z.enum(['high', 'medium', 'low']),
-  dueDate: z.date().nullable(),
+  category: z.enum(['GOAL', 'TASK', 'BUY']),
+  urgency: z.enum(['HIGH', 'MEDIUM', 'LOW']),
+  dueDate: z.preprocess(
+    (val) => (val === null ? null : new Date(val as string)),
+    z.date().nullable()
+  ),
 })
 
 export type NewTaskValidationSchema = z.infer<typeof newTaskValidationSchema>
 
-export function ModalForm() {
+export function ModalForm({ handleCloseModal }: ModalFormProps) {
   const newTaskForm = useForm<NewTaskValidationSchema>({
     resolver: zodResolver(newTaskValidationSchema),
     defaultValues: {
       title: '',
       description: '',
-      category: 'goal',
-      urgency: 'medium',
+      category: 'GOAL',
+      urgency: 'MEDIUM',
       dueDate: null,
     },
   })
 
   const { handleSubmit, register } = newTaskForm
 
-  function handleCreateNewTask() {}
+  const { mutateAsync: createObjectiveFn } = useMutation({
+    mutationFn: createObjective,
+  })
+
+  async function handleCreateNewTask(data: NewTaskValidationSchema) {
+    try {
+      await createObjectiveFn({
+        title: data.title,
+        description: data.description,
+        category: data.category,
+        urgency: data.urgency,
+        dueDate: data.dueDate,
+      })
+
+      toast.success('Objetivo Criado com sucesso')
+      handleCloseModal()
+    } catch {
+      toast.error('Erro ao criar o objetivo')
+    }
+  }
 
   return (
     <FormProvider {...newTaskForm}>

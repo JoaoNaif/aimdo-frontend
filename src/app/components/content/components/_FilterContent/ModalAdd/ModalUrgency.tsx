@@ -13,7 +13,7 @@ export function ModalUrgency() {
         <li className="flex w-full flex-1">
           <input
             type="radio"
-            value="high"
+            value="HIGH"
             id="high"
             {...register('urgency')}
             className="peer hidden"
@@ -32,7 +32,7 @@ export function ModalUrgency() {
         <li className="flex w-full flex-1">
           <input
             type="radio"
-            value="medium"
+            value="MEDIUM"
             id="medium"
             {...register('urgency')}
             className="peer hidden"
@@ -51,7 +51,7 @@ export function ModalUrgency() {
         <li className="flex w-full flex-1">
           <input
             type="radio"
-            value="low"
+            value="LOW"
             id="low"
             {...register('urgency')}
             className="peer hidden"

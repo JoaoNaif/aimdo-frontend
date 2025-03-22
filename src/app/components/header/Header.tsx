@@ -1,5 +1,3 @@
-import rott from '@/../public/rottweiler.webp'
-import Image from 'next/image'
 import { Search, User } from 'lucide-react'
 import { NotificationSection } from './components/NotificationSection'
 import { useQuery } from '@tanstack/react-query'
@@ -40,14 +38,10 @@ export function Header() {
         </article>
       ) : (
         <article className="flex items-center gap-2">
-          <Image src={rott} alt="" className="h-11 w-11 rounded-full" />
-          <div className="flex flex-col">
-            <h1 className="font-bold text-slate-800 dark:text-white">
-              João Naif
-            </h1>
-            <p className="text-sm text-slate-600 dark:text-slate-200">
-              joaonaif@gmail.com
-            </p>
+          <div className="flex h-11 w-11 animate-pulse items-center justify-center rounded-full bg-slate-600"></div>
+          <div className="flex flex-col gap-1">
+            <h1 className="h-5 w-20 animate-pulse rounded-md bg-slate-600 font-bold text-slate-800 dark:text-white"></h1>
+            <p className="h-5 w-36 animate-pulse rounded-md bg-slate-500 text-sm text-slate-600 dark:text-slate-200"></p>
           </div>
         </article>
       )}
