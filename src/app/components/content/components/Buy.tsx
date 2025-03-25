@@ -15,7 +15,7 @@ export function Buy() {
 
   const { data: goals = [] } = useQuery({
     queryFn: fetchBuys,
-    queryKey: ['buys'],
+    queryKey: ['objectives', 'buy'],
   })
 
   const filteredAndSorted = resultFilters(goals, valueFilter)

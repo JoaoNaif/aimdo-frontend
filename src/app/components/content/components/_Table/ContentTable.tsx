@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { ModalTable } from './ModalTable'
 import ReactDOM from 'react-dom'
 import { Objective } from '@/app/_types/Objective'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { deleteObjective } from '@/app/api/delete-objective'
 
 interface ContentTableProps {
   item: Objective
@@ -10,6 +12,17 @@ interface ContentTableProps {
 
 export function ContentTable({ item }: ContentTableProps) {
   const [modal, setModal] = useState(false)
+  const queryClient = useQueryClient()
+
+  const { mutateAsync: deleteObjectiveFn, isPending: isDeletingObjective } =
+    useMutation({
+      mutationFn: deleteObjective,
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ['objectives'],
+        })
+      },
+    })
 
   function handleCloseModal() {
     setModal(false)
@@ -43,9 +56,13 @@ export function ContentTable({ item }: ContentTableProps) {
           </button>
         </td>
         <td className="flex justify-center p-1">
-          <div className="flex w-1/3 cursor-pointer justify-center pt-1 hover:text-rose-500">
+          <button
+            disabled={isDeletingObjective}
+            onClick={() => deleteObjectiveFn({ objectiveId: item.id })}
+            className="flex w-1/3 cursor-pointer justify-center pt-1 hover:text-rose-500"
+          >
             <Trash className="h-5 w-5" />
-          </div>
+          </button>
         </td>
       </tr>
 

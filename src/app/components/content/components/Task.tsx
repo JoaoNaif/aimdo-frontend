@@ -15,7 +15,7 @@ export function Task() {
 
   const { data: tasks = [] } = useQuery({
     queryFn: fetchTask,
-    queryKey: ['tasks'],
+    queryKey: ['objectives', 'task'],
   })
 
   const filteredAndSorted = resultFilters(tasks, valueFilter)

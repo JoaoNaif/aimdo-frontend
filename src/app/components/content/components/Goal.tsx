@@ -15,7 +15,7 @@ export function Goal() {
 
   const { data: goals = [] } = useQuery({
     queryFn: FetchGoals,
-    queryKey: ['goals'],
+    queryKey: ['objectives', 'goal'],
   })
 
   const filteredAndSorted = resultFilters(goals, valueFilter)
