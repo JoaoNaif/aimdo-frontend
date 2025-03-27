@@ -6,7 +6,7 @@ import { ModalUrgency } from './ModalUrgency'
 import { ModalDueDate } from './ModalDueDate'
 import { createObjective } from '@/app/api/create-objective'
 import { toast } from 'sonner'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 interface ModalFormProps {
   handleCloseModal: () => void
@@ -26,6 +26,8 @@ const newTaskValidationSchema = z.object({
 export type NewTaskValidationSchema = z.infer<typeof newTaskValidationSchema>
 
 export function ModalForm({ handleCloseModal }: ModalFormProps) {
+  const queryClient = useQueryClient()
+
   const newTaskForm = useForm<NewTaskValidationSchema>({
     resolver: zodResolver(newTaskValidationSchema),
     defaultValues: {
@@ -54,6 +56,9 @@ export function ModalForm({ handleCloseModal }: ModalFormProps) {
       })
 
       toast.success('Objetivo Criado com sucesso')
+      queryClient.invalidateQueries({
+        queryKey: ['objectives', `${data.category.toLowerCase()}`],
+      })
       handleCloseModal()
     } catch {
       toast.error('Erro ao criar o objetivo')
@@ -77,7 +82,7 @@ export function ModalForm({ handleCloseModal }: ModalFormProps) {
             type="text"
             id="title"
             {...register('title')}
-            className="w-full rounded-md border-2 border-slate-400 px-3 py-1 outline-none focus:border-orange-500"
+            className="w-full rounded-md border-2 border-slate-400 px-3 pb-1 pt-2 outline-none focus:border-orange-500"
           />
         </div>
 
